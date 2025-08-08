@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>मेरो वेबसाइट</title>
+  <style>
+    body {
+      font-family: 'Noto Sans Devanagari', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header, footer {
+      background-color: #007bff;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+    nav {
+      background-color: #333;
+      padding: 10px;
+      text-align: center;
+    }
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+    }
+    main {
+      padding: 20px;
+    }
+    section {
+      margin-bottom: 30px;
+    }
+    form input, form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+    }
+    form button {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+    }
+    footer {
+      margin-top: 20px;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- शीर्षक -->
+  <header>
+    <h1>मेरो वेबसाइटमा स्वागत छ</h1>
+    <p>नेपाली भाषामा वेबसाइट उदाहरण</p>
+  </header>
+
+  <!-- नेभिगेसन -->
+  <nav>
+    <a href="#blog">ब्लग</a>
+    <a href="#certificate">प्रमाणपत्र</a>
+    <a href="#contact">सम्पर्क</a>
+  </nav>
+
+  <main>
+
+    <!-- 1. ब्लग अनुभाग -->
+    <section id="blog">
+      <h2>📄 ब्लग अनुभाग</h2>
+      <article>
+        <h3>मेरो पहिलो ब्लग</h3>
+        <p>यो मेरो पहिलो ब्लग हो जुन मैले HTML मार्फत तयार गरेको छु।</p>
+      </article>
+    </section>
+
+    <!-- 2. प्रमाणपत्र अपलोड अनुभाग -->
+    <section id="certificate">
+      <h2>📜 प्रमाणपत्र अपलोड गर्नुहोस्</h2>
+      <form action="upload.php" method="post" enctype="multipart/form-data">
+        <label for="name">तपाईंको नाम:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="certificate">प्रमाणपत्र फाइल छान्नुहोस् (PDF, JPG):</label>
+        <input type="file" id="certificate" name="certificate" accept=".pdf,.jpg,.jpeg,.png" required>
+
+        <button type="submit">अपलोड गर्नुहोस्</button>
+      </form>
+    </section>
+
+    <!-- 3. सम्पर्क फारम अनुभाग -->
+    <section id="contact">
+      <h2>✉️ हामीलाई सम्पर्क गर्नुहोस्</h2>
+      <form id="contactForm">
+        <label for="fullname">पूरा नाम:</label>
+        <input type="text" id="fullname" name="fullname" required>
+
+        <label for="email">इमेल ठेगाना:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="message">सन्देश:</label>
+        <textarea id="message" name="message" rows="4" required></textarea>
+
+        <button type="submit">पठाउनुहोस्</button>
+      </form>
+    </section>
+
+  </main>
+
+  <!-- फुटर -->
+  <footer>
+    &copy; २०२५ मेरो वेबसाइट। सबै अधिकार सुरक्षित।
+  </footer>
+
+  <!-- Google Sheet मा फारम पठाउने JS -->
+  <script>
+    document.querySelector("#contactForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      fetch("YOUR_GOOGLE_SCRIPT_URL", {
+        method: "POST",
+        body: JSON.stringify({
+          fullname: document.getElementById("fullname").value,
+          email: document.getElementById("email").value,
+          message: document.getElementById("message").value
+        }),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .then(res => res.text())
+      .then(data => alert("सन्देश सफलतापूर्वक पठाइयो!"))
+      .catch(err => alert("त्रुटि भयो: " + err));
+    });
+  </script>
+
+</body>
+</html>
